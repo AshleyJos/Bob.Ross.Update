@@ -1,0 +1,64 @@
+---
+title: "RMarkdown Bob Ross updated"
+author: "Ashley Joslyn"
+date: "7/27/2021"
+output:
+  word_document: default
+  pdf_document: default
+---
+# as I have previously used Markdown and have it and knitr installed, the following code automatically imported when I started a new file
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Section 1: Description of the data: dataset Bob Ross is measuring the visual elements used within Bob Ross's television show The Joy of Painting. All 403 episodes are analyzed. It was collected by a writer at fivethirtyeight through analysing all of the paintings, and working with one of Bob Ross's friend and collaborator. This dataset should allow us to determine what elements he favored overall, as well as what elements he favored in conjunction with others. The file is saved as a CSV file and so is imported as a text file delimited by the comma. It is not binary
+Bob.Ross <- read.csv("C:/Users/ashle/Desktop/Bob.Ross.csv")
+Bob.Ross<-read.csv("Bob.Ross.csv", stringsAsFactors =FALSE)
+
+##Section 2: Reading the Data: I used read.csv and then view to look at the database, this can also be done by going to File->Import Dataset->from text and finding the csv file through the browse function.It is a base function and no special options were needed. I cleaned up the data by changing AURORA_BOREALIS to NORTHERN LIGHTS as that is the nomenclauture I am most familiar with
+> Bob.Ross <- read.csv("~/Bob Ross/Bob Ross.csv", header=TRUE)
+> colnames(x = Bob.Ross)
+> colnames(Bob.Ross)[colnames(Bob.Ross) == 'AURORA_BOREALIS'] <- 'NORTHERN LIGHTS'
+> colnames(x=Bob.Ross)
+
+##Section 3: Characteristics of the data: The data has 403 representing the 403 episodes aired.  There are 69 total columns, 67 data elements, or variables (visual elements and frame identified by the researcher) and 2 for episode number and episode title. The row names, or observations are the episode names and the col are the visual descriptors and frames used for his paintings. The units of observations are the visual elements that comprise his paintings. This can be seen in the Environment Window
+> paste("This dataframe has 403 rows and 69 columns")
+> text_tbl <- data.frame("Title of Episode", "visual descriptor or frame type", "1=used in episode 0=not used in episode")
+> View(text_tbl)
+
+#Section 4: Summary Statistics: First I look for any missing values, there are no missing values. Then I get the min, max, and mean for three columns.  The min and max for each variable is 1 or 0 respectivly but the means vary.
+> colSums(is.na(Bob.Ross))
+> min(Bob.Ross$BEACH)
+> max(Bob.Ross$BEACH)
+> mean(Bob.Ross$BEACH)
+> min(Bob.Ross$BARN)
+> max(Bob.Ross$BARN)
+> mean(Bob.Ross$BARN)
+> min(Bob.Ross$BOAT)
+> max(Bob.Ross$BOAT)
+> mean(Bob.Ross$BOAT)
+##The above is how I did section 4 it on my original assignment as I couldn't get kable to run properly, but as I have learned more since then the correct answer is as follows.
+##First I install summarytools by going to Tools->Install Packages
+#I then seperate out the columns I need the summary data for
+Bob.Rossabrev=data.frame(Bob.Ross$BEACH, Bob.Ross$BARN, Bob.Ross$BOAT)
+summary(Bob.Rossabrev)
